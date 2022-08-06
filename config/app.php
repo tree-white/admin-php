@@ -3,10 +3,6 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-    /**
-     * 验证码过期时间
-     */
-    'code_expire_time' => env('CODE_EXPIRE_TIME', 60),
 
     /*
     |--------------------------------------------------------------------------

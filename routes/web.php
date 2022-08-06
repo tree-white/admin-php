@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Config;
 use App\Models\User;
 use App\Notifications\EmailValidateCodeNotification;
 use Illuminate\Support\Facades\Notification;
@@ -31,5 +32,7 @@ Route::get('test', function () {
     // return (new EmailValidateCodeNotification())->toMail(User::factory()->make());
 
     // 通知测试
-    Notification::send(User::factory()->make(), new EmailValidateCodeNotification(1232));
+    // Notification::send(User::factory()->make(), new EmailValidateCodeNotification(1232));
+
+    // return config('tw.site.name');
 });

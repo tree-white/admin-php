@@ -17,7 +17,7 @@ class CodeService
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
         if (Cache::get($account)) {
-            abort('403', '验证码已发送');
+            abort('403', '验证码获取频繁，请' . config('tw.code_expire_time') . 's后再试');
         }
         return $this->$action($account);
     }
@@ -30,15 +30,18 @@ class CodeService
         $code = $this->generateVerificationCode();
         $user = User::factory()->make(['email' => $email]);
         Notification::send($user, new EmailValidateCodeNotification($code));
-        Cache::put($email, $code, config('code_expire_time'));
+        Cache::put($email, $code, config('tw.code_expire_time'));
         return $code;
     }
 
     /**
      * 手机号验证码
      */
-    protected function mobile()
+    protected function mobile($phone)
     {
+        $code = $this->generateVerificationCode();
+        app('sms')->send($phone, 'SMS_154950909', ['code' => $code]);
+        return $code;
     }
 
     /**
