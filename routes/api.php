@@ -5,6 +5,7 @@ use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ValidateCodeController;
 use Illuminate\Http\Request;
@@ -45,3 +46,5 @@ Route::post('upload/avatar', [UploadController::class, 'avatar']);
  * |- 例如：->scoped(['permission' => 'name'])
  */
 Route::apiResource('permission', PermissionController::class);
+
+Route::apiResource('role', RoleController::class);

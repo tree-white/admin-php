@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class UpdatePermissionRequest extends FormRequest
+class StoreRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class UpdatePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:permissions,name,' . request('permission.id')],
-            'title' => ['required', Rule::unique('permissions', 'title')->ignore(request('permission.id'))]
+            'name' => ['required', 'unique:roles,name'],
+            'title' => ['required', Rule::unique('roles', 'title')]
         ];
     }
 }

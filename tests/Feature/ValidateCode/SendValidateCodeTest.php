@@ -50,7 +50,6 @@ class SendValidateCodeTest extends TestCase
      */
     public function repeatSendVerificationCode()
     {
-        config(['app.debug' => false]);
         $user = User::factory()->make();
         $this->post('/api/code/send', ['account' => $user->email])->assertOk();
         $this->post('/api/code/send', ['account' => $user->email])->assertStatus(403);

@@ -16,7 +16,8 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (!config('app.debug') && Cache::get($account)) {
+        // 本地开发不开启时间限制
+        if (!app()->isLocal() && Cache::get($account)) {
             abort('403', '验证码获取频繁，请' . config('tw.code_expire_time') . 's后再试');
         }
         return $this->$action($account);

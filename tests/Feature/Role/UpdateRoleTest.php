@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature\Permission;
+namespace Tests\Feature\Role;
 
-use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class UpdatePermissionTest extends TestCase
+class UpdateRoleTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -22,10 +22,10 @@ class UpdatePermissionTest extends TestCase
      * 字段不能为空
      * @test
      */
-    public function updatePermissionFieldCannotBeEmpty()
+    public function updateRoleFieldCannotBeEmpty()
     {
-        $permission = create(Permission::class);
-        $response = $this->putJson("/api/permission/{$permission['id']}");
+        $role = create(Role::class);
+        $response = $this->putJson("/api/role/{$role['id']}");
 
         $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
     }
@@ -34,13 +34,13 @@ class UpdatePermissionTest extends TestCase
      * 更新权限字段不能重复
      * @test
      */
-    public function updatePermissionsFieldCantBeRepeated()
+    public function updateRolesFieldCantBeRepeated()
     {
-        $permission1 = create(Permission::class);
-        $permission2 = create(Permission::class);
-        $response = $this->putJson("/api/permission/{$permission2['id']}", [
-            'name' => $permission1['name'],
-            'title' => $permission1['title']
+        $role1 = create(Role::class);
+        $role2 = create(Role::class);
+        $response = $this->putJson("/api/role/{$role2['id']}", [
+            'name' => $role1['name'],
+            'title' => $role1['title']
         ]);
         $response->assertStatus(422)->assertJsonValidationErrors(['name', 'title']);
     }
@@ -49,11 +49,10 @@ class UpdatePermissionTest extends TestCase
      * 更新权限记录
      * @test
      */
-    public function updatePermissionAccessRecords()
+    public function updateRoleAccessRecords()
     {
-        $this->withoutExceptionHandling();
-        $permission = create(Permission::class);
-        $response = $this->putJson("/api/permission/{$permission['id']}", [
+        $role = create(Role::class);
+        $response = $this->putJson("/api/role/{$role['id']}", [
             'name' => $this->faker()->word(),
             'title' => $this->faker()->word()
         ]);

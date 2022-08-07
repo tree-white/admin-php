@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $guard_name = ['sanctum'];
+
     /**
      * 质量可分配的属性.
      *
