@@ -17,7 +17,8 @@ class RegisterController extends Controller
         ]);
 
         return [
-            'info' => $user,
+            // $user->refresh() 刷新创建后最新的数据库用户数据
+            'info' => $user->refresh(),
             'token' => $user->createToken('auth')->plainTextToken
         ];
     }

@@ -16,7 +16,7 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        if (Cache::get($account)) {
+        if (!config('app.debug') && Cache::get($account)) {
             abort('403', '验证码获取频繁，请' . config('tw.code_expire_time') . 's后再试');
         }
         return $this->$action($account);

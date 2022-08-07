@@ -7,8 +7,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class GuestValidateCodeTest extends TestCase
+class SendValidateCodeTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * 发送邮件验证码
      * @test
@@ -16,7 +18,7 @@ class GuestValidateCodeTest extends TestCase
     public function emailVerificationCode()
     {
         $user = User::factory()->make();
-        $this->post('/api/code/guest', [
+        $this->post('/api/code/send', [
             'account' => $user->email
         ])->assertOk();
     }
@@ -26,8 +28,7 @@ class GuestValidateCodeTest extends TestCase
      */
     public function sendMobilePhoneVerificationCode()
     {
-        $this->withoutExceptionHandling();
-        $this->post('/api/code/guest', [
+        $this->post('/api/code/send', [
             'account' => '15820153724'
         ])->assertOk();
     }
@@ -38,7 +39,7 @@ class GuestValidateCodeTest extends TestCase
      */
     public function emailFormatError()
     {
-        $this->post('/api/code/guest', [
+        $this->post('/api/code/send', [
             'account' => 'tw'
         ])->assertSessionHasErrors('account');
     }
@@ -49,12 +50,9 @@ class GuestValidateCodeTest extends TestCase
      */
     public function repeatSendVerificationCode()
     {
+        config(['app.debug' => false]);
         $user = User::factory()->make();
-        $this->post('/api/code/guest', [
-            'account' => $user->email
-        ])->assertOk();
-        $this->post('/api/code/guest', [
-            'account' => $user->email
-        ])->assertStatus(403);
+        $this->post('/api/code/send', ['account' => $user->email])->assertOk();
+        $this->post('/api/code/send', ['account' => $user->email])->assertStatus(403);
     }
 }

@@ -134,9 +134,11 @@ return [
         ],
     ],
     'attributes' => [
-        'code'          => '验证码',
-        'password'      => '密码',
-        'account'       => '账号',
-        'file'          => '文件',
+        'code'                  => '验证码',
+        'password'              => '密码',
+        'account'               => '账号',
+        'file'                  => '文件',
+        'name'                  => '名称',
+        'title'                 => '标题',
     ]
 ];

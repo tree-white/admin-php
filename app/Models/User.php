@@ -31,6 +31,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'unionid',
+        'openid',
+        'miniapp_openid',
     ];
 
     protected $appends = ['avatar_url'];
