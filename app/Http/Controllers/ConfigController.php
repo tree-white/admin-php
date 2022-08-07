@@ -17,8 +17,9 @@ class ConfigController extends Controller
     public function update(Request $request, string $name)
     {
         $config = Config::firstOrNew();
-        $config[$name] = $request->input() + $config[$name] ?: [];
+        $config[$name] = $request->input() + ($config[$name] ?: []);
         $config->save();
+
         return $config[$name];
     }
 }

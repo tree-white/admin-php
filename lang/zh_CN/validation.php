@@ -136,6 +136,7 @@ return [
     'attributes' => [
         'code'          => '验证码',
         'password'      => '密码',
-        'account'       => '账号'
+        'account'       => '账号',
+        'file'          => '文件',
     ]
 ];

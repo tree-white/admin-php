@@ -23,7 +23,6 @@ class GuestValidateCodeTest extends TestCase
 
     /**
      * 发送手机验证码
-     * @test
      */
     public function sendMobilePhoneVerificationCode()
     {

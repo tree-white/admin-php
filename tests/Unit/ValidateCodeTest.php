@@ -21,15 +21,4 @@ class ValidateCodeTest extends TestCase
         $code = app('code')->email($user->email);
         $this->assertEquals(Cache::get($user->email), $code);
     }
-
-    /**
-     * @test
-     */
-    public function testCode()
-    {
-        $response = $this->post('api/code/guest', [
-            'account' => 'trwite@treewhite.com'
-        ]);
-        $response->dd();
-    }
 }

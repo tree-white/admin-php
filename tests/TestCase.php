@@ -13,6 +13,7 @@ abstract class TestCase extends BaseTestCase
 
     // 测试时使用数据填充一下两种方式都可以
     // protected $seed = true;
+    // ↑等同于↓
     // protected function setUp(): void
     // {
     //     parent::setUp();
