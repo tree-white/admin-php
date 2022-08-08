@@ -28,6 +28,6 @@ class DeleteRoleTest extends TestCase
         $role = create(Role::class);
         $response = $this->delete("/api/role/{$role['id']}");
 
-        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('message'));
+        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('message')->etc());
     }
 }

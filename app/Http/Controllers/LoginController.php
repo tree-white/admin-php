@@ -26,9 +26,9 @@ class LoginController extends Controller
             ]);
         }
 
-        return [
+        return $this->success('登录成功', [
             'info' => $user,
             'token' => $user->createToken('auth')->plainTextToken
-        ];
+        ]);
     }
 }

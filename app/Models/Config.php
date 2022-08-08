@@ -10,4 +10,6 @@ class Config extends Model
     use HasFactory;
 
     protected $casts = ['data' => 'array'];
+
+    protected $fillable = ['name', 'data'];
 }

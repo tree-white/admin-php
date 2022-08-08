@@ -16,10 +16,10 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return [
+        return $this->success('注册成功', [
             // $user->refresh() 刷新创建后最新的数据库用户数据
             'info' => $user->refresh(),
             'token' => $user->createToken('auth')->plainTextToken
-        ];
+        ]);
     }
 }

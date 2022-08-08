@@ -13,6 +13,6 @@ class ForgetPasswordController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return response(['message' => '密码修改成功']);
+        return $this->success(data: '密码修改成功');
     }
 }

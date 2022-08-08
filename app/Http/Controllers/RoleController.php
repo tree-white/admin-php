@@ -23,7 +23,7 @@ class RoleController extends Controller
     {
         // 如果需要获取所有则需要通过静态方法「collection」来获取
         $role = Role::all();
-        return RoleResource::collection($role);
+        return $this->success('获取成功', RoleResource::collection($role));
     }
 
     /**
@@ -36,7 +36,7 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->title = $request->title;
         $role->save();
-        return new RoleResource($role);
+        return $this->success('创建成功', new RoleResource($role));
     }
 
     /**
@@ -47,7 +47,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         // 如果只要指定单条的话只要 new 一下实例传入即可
-        return new RoleResource($role);
+        return $this->success('获取成功', new RoleResource($role));
     }
 
     /**
@@ -61,7 +61,7 @@ class RoleController extends Controller
         $role->name = $request->name;
         $role->title = $request->title;
         $role->save();
-        return new RoleResource($role);
+        return $this->success('更新成功', new RoleResource($role));
     }
 
     /**
@@ -72,7 +72,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return response(['message' => '角色删除成功']);
+        return $this->success('角色删除成功');
     }
 
     /**

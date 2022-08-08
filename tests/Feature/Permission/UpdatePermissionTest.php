@@ -58,6 +58,6 @@ class UpdatePermissionTest extends TestCase
             'title' => $this->faker()->word()
         ]);
 
-        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('data'));
+        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('data')->etc());
     }
 }

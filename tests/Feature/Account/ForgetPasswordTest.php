@@ -43,12 +43,10 @@ class ForgetPasswordTest extends TestCase
     public function retrievePassword()
     {
         $user = create(User::class);
-        $codeResponse = $this->post('/api/code/send', [
-            'account' => $user->email
-        ]);
+        $codeResponse = $this->post('/api/code/send', ['account' => $user->email]);
         $response = $this->postJson('/api/account/forget-password', [
             'account' => $user->email,
-            'code' => $codeResponse['code'],
+            'code' => $codeResponse['data'],
             'password' => 'admin666',
             'password_confirmation' => 'admin666',
         ]);

@@ -39,6 +39,6 @@ class DeletePermissionTest extends TestCase
         $permission = create(Permission::class);
         $response = $this->delete("/api/permission/{$permission['id']}");
 
-        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('message'));
+        $response->assertOk()->assertJson(fn (AssertableJson $json) => $json->has('message')->etc());
     }
 }

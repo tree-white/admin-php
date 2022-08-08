@@ -49,6 +49,6 @@ class AddPermissionTest extends TestCase
     {
         $response = $this->postJson('/api/permission', ['name' => 'tw', 'title' => 'tw']);
 
-        $response->assertStatus(201)->assertJsonStructure(['data']);
+        $response->assertSuccessful()->assertJsonStructure(['data']);
     }
 }

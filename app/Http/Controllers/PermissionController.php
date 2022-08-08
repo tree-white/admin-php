@@ -23,7 +23,7 @@ class PermissionController extends Controller
     {
         // 如果需要获取所有则需要通过静态方法「collection」来获取
         $permission = Permission::all();
-        return PermissionResource::collection($permission);
+        return $this->success('获取成功', PermissionResource::collection($permission));
     }
 
     /**
@@ -34,7 +34,7 @@ class PermissionController extends Controller
     public function store(StorePermissionRequest $request)
     {
         $permission = Permission::create(['name' => $request->name, 'title' => $request->title]);
-        return new PermissionResource($permission);
+        return $this->success('创建成功', new PermissionResource($permission));
     }
 
     /**
@@ -45,7 +45,7 @@ class PermissionController extends Controller
     public function show(Permission $permission)
     {
         // 如果只要指定单条的话只要 new 一下实例传入即可
-        return new PermissionResource($permission);
+        return $this->success('获取成功', new PermissionResource($permission));
     }
 
     /**
@@ -59,7 +59,7 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->title = $request->title;
         $permission->save();
-        return new PermissionResource($permission);
+        return $this->success('更新成功', new PermissionResource($permission));
     }
 
     /**
@@ -70,6 +70,6 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return response(['message' => '权限删除成功']);
+        return $this->success('权限删除成功');
     }
 }
