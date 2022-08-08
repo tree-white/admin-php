@@ -16,25 +16,28 @@ class ConfigSeeder extends Seeder
     public function run()
     {
         Config::create([
-            'site' => [
-                'name' => '木白',
-                'tel' => '13800138000',
-                'icp' => '',
-                'keywords' => '',
-                'address' => '',
-                'email' => '',
-                'author' => ''
-            ],
-            'yunpian' => [
-                'api_key' => env('YUNPIAN_API_KEY'),
-            ],
-            'aliyun' => [
-                'access_key_id' => env('ALIYUN_ACCESS_KEY_ID'),
-                'access_key_secret' => env('ALIYUN_ACCESS_KEY_SECRET'),
-                'sms' => [
-                    'sign_name' => env('ALIYUN_SMS_SIGN_NAME'),
+            'name' => 'system',
+            'data' => [
+                'site' => [
+                    'name' => '木白',
+                    'tel' => '13800138000',
+                    'icp' => '',
+                    'keywords' => '',
+                    'address' => '',
+                    'email' => '',
+                    'author' => ''
                 ],
-            ],
+                'yunpian' => [
+                    'api_key' => env('YUNPIAN_API_KEY'),
+                ],
+                'aliyun' => [
+                    'access_key_id' => env('ALIYUN_ACCESS_KEY_ID'),
+                    'access_key_secret' => env('ALIYUN_ACCESS_KEY_SECRET'),
+                    'sms' => [
+                        'sign_name' => env('ALIYUN_SMS_SIGN_NAME'),
+                    ]
+                ]
+            ]
         ]);
     }
 }

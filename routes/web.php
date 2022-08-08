@@ -34,5 +34,5 @@ Route::get('test', function () {
     // 通知测试
     // Notification::send(User::factory()->make(), new EmailValidateCodeNotification(1232));
 
-    // return config('tw.site.name');
+    // return config('system.site.name');
 });

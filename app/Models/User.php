@@ -38,6 +38,7 @@ class User extends Authenticatable
         'miniapp_openid',
     ];
 
+    // 额外添加列
     protected $appends = ['avatar_url'];
 
     /**
@@ -49,8 +50,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 给列「avatar_url」添加属性
     public function getAvatarUrlAttribute()
     {
         return $this->avatar ?? url('images/avatar.jpeg');
+    }
+
+    /**
+     * 关注列表
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    /** 是否关注 */
+    public function isFollower(User $user)
+    {
+        return $this->followers()->where('follower_id', $user->id)->exists();
+    }
+
+    /**
+     * 粉丝列表
+     */
+    public function fans()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 }

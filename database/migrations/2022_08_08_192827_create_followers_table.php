@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('configs', function (Blueprint $table) {
+        Schema::create('followers', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->comment('模块表示');
-            $table->json('data')->comment('配置数据');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('follower_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configs');
+        Schema::dropIfExists('followers');
     }
 };

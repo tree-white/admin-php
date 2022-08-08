@@ -9,5 +9,5 @@ class Config extends Model
 {
     use HasFactory;
 
-    protected $casts = ['site' => 'array', 'aliyun' => 'array', 'yunpian' => 'array'];
+    protected $casts = ['data' => 'array'];
 }

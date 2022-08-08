@@ -47,9 +47,9 @@ class SmsService
                         'file' => '/tmp/easy-sms.log',
                     ],
                     'aliyun' => [
-                        'access_key_id' => config('tw.aliyun.access_key_id'),
-                        'access_key_secret' => config('tw.aliyun.access_key_secret'),
-                        'sign_name' => config('tw.aliyun.sms.sign_name'),
+                        'access_key_id' => config('system.aliyun.access_key_id'),
+                        'access_key_secret' => config('system.aliyun.access_key_secret'),
+                        'sign_name' => config('system.aliyun.sms.sign_name'),
                     ],
                 ],
             ];
