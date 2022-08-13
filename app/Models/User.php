@@ -39,7 +39,7 @@ class User extends Authenticatable
     ];
 
     // 额外添加列
-    protected $appends = ['avatar_url'];
+    // protected $appends = ['avatar_url'];
 
     /**
      * 应强制转换的属性.
@@ -51,10 +51,10 @@ class User extends Authenticatable
     ];
 
     // 给列「avatar_url」添加属性
-    public function getAvatarUrlAttribute()
-    {
-        return $this->avatar ?? url('images/avatar.jpeg');
-    }
+    // public function getAvatarUrlAttribute()
+    // {
+    //     return $this->avatar ?? url('images/avatar.jpeg');
+    // }
 
     /**
      * 关注列表
