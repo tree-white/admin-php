@@ -16,14 +16,14 @@ class ValidateCodeController extends Controller
     // 任何用户发送验证码
     public function send(ValidateCodeRequest $request, CodeService $codeService)
     {
-        $code = $codeService->send($request->account);
-        return $this->success('验证码发送成功', $code);
+        $codeService->send($request->account);
+        return $this->success('验证码发送成功');
     }
 
     // 发送当前请求的用户验证码
     public function user(string $type, CodeService $codeService)
     {
-        $code = $codeService->send(Auth::user()[$type]);
-        return $this->success('验证码发送成功', $code);
+        $codeService->send(Auth::user()[$type]);
+        return $this->success('验证码发送成功');
     }
 }

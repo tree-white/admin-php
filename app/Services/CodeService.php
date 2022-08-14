@@ -17,12 +17,12 @@ class CodeService
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
 
-        $cache = Cache::get($account);
-        $diff = $cache['sendTime']->diffInSeconds(now());
-
         // 开启本地开发不限制加上：!app()->isLocal()
-        if ($cache && $diff <= config('system.code.timeout')) {
-            abort('403', '验证码获取频繁，请' .  config('system.code.timeout') - $diff . 's后再试');
+        if ($cache = Cache::get($account)) {
+            $diff = $cache['sendTime']->diffInSeconds(now());
+            if ($diff <= config('system.code.timeout')) {
+                abort('403', '获取验证码失败，请 ' .  config('system.code.timeout') - $diff . '秒 后再试');
+            }
         }
 
         $code = $cache ? $cache['code'] : $this->generateCode(); // 生成验证码
@@ -61,7 +61,9 @@ class CodeService
     /** 校验验证码 */
     public function check($account, $code): bool
     {
-        return Cache::get($account) == $code;
+        if ($cache = Cache::get($account)) {
+            return $cache['code'] == $code;
+        }
     }
 
     /** 清除验证码 */
