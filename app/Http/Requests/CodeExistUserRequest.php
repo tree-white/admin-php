@@ -5,12 +5,12 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CodeNotExistUserRequest extends FormRequest
+class CodeExistUserRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'account' => ['required', $this->accountRule(), $this->checkUserNotExists()],
+            'account' => ['required', $this->accountRule(), 'exists:users,' . $this->fieldName()],
         ];
     }
 
@@ -24,16 +24,5 @@ class CodeNotExistUserRequest extends FormRequest
     protected function fieldName()
     {
         return filter_var(request('account'), FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-    }
-
-    /** 检查用户是否存在 */
-    protected function checkUserNotExists()
-    {
-        return function ($validate, $value, $fail) {
-            $isExists = User::where($this->fieldName(), $value)->exists();
-            if ($isExists) {
-                $fail('该账号已存在');
-            };
-        };
     }
 }

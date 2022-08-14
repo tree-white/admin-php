@@ -25,7 +25,7 @@ class CodeService
             }
         }
 
-        $code = $cache ? $cache['code'] : $this->generateCode(); // 生成验证码
+        $code = $this->generateCode(); // 生成验证码
         $this->cacheCode($account, $code); // 缓存验证码
         return $this->$action($account, $code);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CodeExistUserRequest;
 use App\Http\Requests\CodeNotExistUserRequest;
 use App\Http\Requests\CodeRequest;
 use App\Services\CodeService;
@@ -30,6 +31,13 @@ class CodeController extends Controller
 
     /** 不存在用户发送验证码 */
     public function notExistUser(CodeNotExistUserRequest $request, CodeService $codeService)
+    {
+        $codeService->send($request->account);
+        return $this->success('验证码发送成功');
+    }
+
+    /** 存在用户发送验证码 */
+    public function existUser(CodeExistUserRequest $request, CodeService $codeService)
     {
         $codeService->send($request->account);
         return $this->success('验证码发送成功');
