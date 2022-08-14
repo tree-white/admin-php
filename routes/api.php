@@ -10,7 +10,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ValidateCodeController;
+use App\Http\Controllers\CodeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,11 +37,11 @@ Route::post('login', LoginController::class);
 // 忘记密码
 Route::post('account/forget-password', ForgetPasswordController::class);
 // 发送验证码
-Route::post('code/send', [ValidateCodeController::class, 'send']);
+Route::post('code/send', [CodeController::class, 'send']);
 // 给当前用户发送验证码
-Route::post('code/user/{type}', [ValidateCodeController::class, 'user']);
+Route::post('code/user/{type}', [CodeController::class, 'user']);
 // 给未注册用户发验证码
-Route::post('code/not_exist_user', [ValidateCodeController::class, 'notExistUser']);
+Route::post('code/not_exist_user', [CodeController::class, 'notExistUser']);
 // 更改配置项
 Route::put('config/{name}', [ConfigController::class, 'update']);
 // 上传头像

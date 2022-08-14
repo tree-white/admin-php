@@ -53,4 +53,15 @@ class SendValidateCodeTest extends TestCase
         $this->post('/api/code/send', ['account' => $user->email])->assertOk();
         $this->post('/api/code/send', ['account' => $user->email])->assertStatus(403);
     }
+
+    /**
+     * 给不存在用户发送验证码
+     * @test
+     */
+    public function sendToNotExistUser()
+    {
+        $user = create(User::class, ['email' => 'trwite@treewhite.com']);
+        $response = $this->postJson('/api/code/not_exist_user', ['account' => $user->email]);
+        $response->dd();
+    }
 }
