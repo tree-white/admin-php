@@ -5,7 +5,6 @@ namespace Tests\Feature\Role;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SetRolePermissionTest extends TestCase
@@ -25,7 +24,6 @@ class SetRolePermissionTest extends TestCase
     public function setTheRolePermissions()
     {
         $permissions = create(Permission::class, [], 6);
-        // dd($permissions->pluck('id'));
         $role = create(Role::class);
         $response =  $this->putJson('/api/role/permission/' . $role['id'], [
             'permission' => $permissions->pluck('id')

@@ -4,7 +4,6 @@ namespace Tests\Feature\Account;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterTest extends TestCase
@@ -18,7 +17,6 @@ class RegisterTest extends TestCase
             'account' => $user->email,
             'password' => 'admin888',
             'password_confirmation' => 'admin888',
-            'code' => app('code')->email($user->email)
         ];
     }
 

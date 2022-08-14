@@ -18,7 +18,8 @@ class ValidateCodeTest extends TestCase
     public function getMailVerificationCode()
     {
         $user = User::factory()->make();
-        $code = app('code')->email($user->email);
-        $this->assertEquals(Cache::get($user->email), $code);
+        $code = app('code')->send($user->email);
+
+        $this->assertEquals(Cache::get($user->email)['code'], $code);
     }
 }

@@ -40,6 +40,8 @@ Route::post('account/forget-password', ForgetPasswordController::class);
 Route::post('code/send', [ValidateCodeController::class, 'send']);
 // 给当前用户发送验证码
 Route::post('code/user/{type}', [ValidateCodeController::class, 'user']);
+// 给未注册用户发验证码
+Route::post('code/not_exists_user', [ValidateCodeController::class, 'notExistsUser']);
 // 更改配置项
 Route::put('config/{name}', [ConfigController::class, 'update']);
 // 上传头像

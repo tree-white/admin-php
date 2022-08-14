@@ -11,16 +11,6 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 用户默认头像
-     * @test
-     */
-    public function userTheDefaultAvatar()
-    {
-        $user = create(User::class);
-        $this->assertEquals($user->avatar_url, url('images/avatar.jpeg'));
-    }
-
-    /**
      * 关注列表
      * @test
      */

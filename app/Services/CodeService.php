@@ -59,7 +59,7 @@ class CodeService
     }
 
     /** 校验验证码 */
-    public function check($account, $code): bool
+    public function check($account, $code)
     {
         if ($cache = Cache::get($account)) {
             return $cache['code'] == $code;

@@ -12,7 +12,6 @@ class RegisterRequest extends FormRequest
         return [
             'account' => $this->accountRule(),
             'password' => ['required', 'min:3', 'confirmed'],
-            // 'code' => ['required', new ValidateCodeRule]
         ];
     }
 
