@@ -16,54 +16,55 @@ class CodeService
     public function send(string|int $account)
     {
         $action = filter_var($account, FILTER_VALIDATE_EMAIL) ? 'email' : 'mobile';
-        // 本地开发不开启时间限制
-        if (!app()->isLocal() && Cache::get($account)) {
-            abort('403', '验证码获取频繁，请' . config('system.code_expire_time') . 's后再试');
+
+        $cache = Cache::get($account);
+        $diff = $cache['sendTime']->diffInSeconds(now());
+
+        // 开启本地开发不限制加上：!app()->isLocal()
+        if ($cache && $diff <= config('system.code.timeout')) {
+            abort('403', '验证码获取频繁，请' .  config('system.code.timeout') - $diff . 's后再试');
         }
-        return $this->$action($account);
+
+        $code = $cache ? $cache['code'] : $this->generateCode(); // 生成验证码
+        $this->cacheCode($account, $code); // 缓存验证码
+        return $this->$action($account, $code);
     }
 
-    /**
-     * 邮箱验证码
-     */
-    public function email(string $email): int
+    /** 邮箱验证码 */
+    public function email(string $email, int $code): int
     {
-        $code = $this->generateVerificationCode();
         $user = User::factory()->make(['email' => $email]);
         Notification::send($user, new EmailValidateCodeNotification($code));
-        Cache::put($email, $code, config('system.code_expire_time'));
         return $code;
     }
 
-    /**
-     * 手机号验证码
-     */
-    protected function mobile($phone)
+
+    /** 手机号验证码 */
+    protected function mobile(string|int $phone, int $code): int
     {
-        $code = $this->generateVerificationCode();
         app('sms')->send($phone, 'SMS_154950909', ['code' => $code]);
         return $code;
     }
 
-    /**
-     * 生成验证码
-     */
-    protected function generateVerificationCode(): int
+    /** 生成验证码 */
+    protected function generateCode(): int
     {
-        return mt_rand(1000, 9999);
+        return mt_rand(pow(10, config('system.code.length') - 1), pow(10, config('system.code.length')) - 1);
     }
 
-    /**
-     * 校验验证码
-     */
+    /** 缓存验证码 */
+    protected function cacheCode(string|int $account, int $code): void
+    {
+        Cache::put($account, ['code' => $code, 'sendTime' => now()], config('system.code.expire'));
+    }
+
+    /** 校验验证码 */
     public function check($account, $code): bool
     {
         return Cache::get($account) == $code;
     }
 
-    /**
-     * 清除验证码
-     */
+    /** 清除验证码 */
     public function clear(string|int $account): void
     {
         Cache::forget($account);
