@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ValidateCodeRequest;
+use App\Http\Requests\CodeRequest;
 use App\Services\CodeService;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,7 @@ class ValidateCodeController extends Controller
     }
 
     // 任何用户发送验证码
-    public function send(ValidateCodeRequest $request, CodeService $codeService)
+    public function send(CodeRequest $request, CodeService $codeService)
     {
         $codeService->send($request->account);
         return $this->success('验证码发送成功');

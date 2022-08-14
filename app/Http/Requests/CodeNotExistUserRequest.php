@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateCodeRequest extends FormRequest
+class CodeNotExistUserRequest extends FormRequest
 {
     public function rules()
-    {
+        {
         return [
             'account' => $this->accountRule(),
         ];
