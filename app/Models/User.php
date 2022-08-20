@@ -77,4 +77,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
+
+    /**
+     * 关联站点
+     */
+    public function site()
+    {
+        return $this->hasMany(Site::class);
+    }
 }

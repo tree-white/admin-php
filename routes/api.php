@@ -11,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\SiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -69,3 +70,6 @@ Route::get('follower/toggle/{user}', [FollowerController::class, 'toggle']);
 
 /** 粉丝管理 */
 Route::get('fans/{user}', [FansController::class, 'index']);
+
+/** 站点管理 */
+Route::apiResource('site', SiteController::class);
