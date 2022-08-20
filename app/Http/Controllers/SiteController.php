@@ -17,7 +17,7 @@ class SiteController extends Controller
 
     public function index()
     {
-        //
+        return $this->success('获取成功', SiteResource::collection(site::all()));
     }
 
     public function store(StoreSiteRequest $request, Site $site)
