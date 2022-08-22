@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function success($message = '操作成功', $data = [], int $code = 1,)
+    protected function success($message = '', $data = [], int $code = 1,)
     {
         return response()->json([
             'code' => $code,
@@ -20,5 +20,4 @@ class Controller extends BaseController
             'data' => $data,
         ]);
     }
-
 }

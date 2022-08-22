@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public  function info()
     {
-        return $this->success('查询成功', new UserResource(auth()->user()));
+        return $this->success(data: new UserResource(auth()->user()));
     }
 
     /**

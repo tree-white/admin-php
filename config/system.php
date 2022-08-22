@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'site' => [
+        "login" => '',
+    ],
     'mobile' => '15820153724',
     'code' => [
         'expire' => env('CODE_EXPIRE_TIME', 600), // 有效期 10分钟

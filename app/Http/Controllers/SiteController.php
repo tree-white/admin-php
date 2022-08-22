@@ -17,7 +17,7 @@ class SiteController extends Controller
 
     public function index()
     {
-        return $this->success('获取成功', SiteResource::collection(site::all()));
+        return $this->success('获取站点列表成功', SiteResource::collection(site::all()));
     }
 
     public function store(StoreSiteRequest $request, Site $site)
@@ -30,17 +30,19 @@ class SiteController extends Controller
 
     public function show(Site $site)
     {
-        //
+        return $this->success(data: new SiteResource($site));
     }
 
 
     public function update(UpdateSiteRequest $request, Site $site)
     {
-        //
+        $site->fill($request->input())->save();
+        return $this->success('站点更新成功', new SiteResource($site));
     }
 
     public function destroy(Site $site)
     {
-        //
+        $site->delete();
+        return $this->success('站点删除成功');
     }
 }

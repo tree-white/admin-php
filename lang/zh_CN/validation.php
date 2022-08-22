@@ -141,5 +141,7 @@ return [
         'file'                  => '文件',
         'name'                  => '名称',
         'title'                 => '标题',
+        'email'                 => '邮箱',
+        'address'               => '地址'
     ]
 ];

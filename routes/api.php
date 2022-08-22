@@ -47,8 +47,11 @@ Route::post('code/not_exist_user', [CodeController::class, 'notExistUser']);
 Route::post('code/exist_user', [CodeController::class, 'existUser']);
 // 更改配置项
 Route::put('config/{name}', [ConfigController::class, 'update']);
+
 // 上传头像
 Route::post('upload/avatar', [UploadController::class, 'avatar']);
+// 上传头像
+Route::post('upload/image', [UploadController::class, 'image']);
 
 /**
  * 权限接口需要包含增伤该车，可以使用Laravel提供的方法
