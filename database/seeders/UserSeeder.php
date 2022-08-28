@@ -17,7 +17,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(20)->has(Site::factory())->create();
+        User::factory(20)->create();
+        User::factory(3)->has(Site::factory())->create();
         $user = User::first();
         $user->email = 'trwite@treewhite.com';
         $user->name = '楷哥哥';

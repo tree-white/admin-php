@@ -26,8 +26,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        return $this->success('获取用户列表成功', UserResource::collection($users));
+        return UserResource::collection(User::latest()->paginate(10));
     }
 
     /**

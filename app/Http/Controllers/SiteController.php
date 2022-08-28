@@ -17,7 +17,7 @@ class SiteController extends Controller
 
     public function index()
     {
-        return $this->success('获取站点列表成功', SiteResource::collection(site::all()));
+        return $this->success(data: SiteResource::collection(Site::latest()->paginate()));
     }
 
     public function store(StoreSiteRequest $request, Site $site)
