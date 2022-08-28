@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\SystemController;
 use App\Http\Controllers\FansController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ForgetPasswordController;
@@ -53,9 +53,9 @@ Route::post('code/exist_user', [CodeController::class, 'existUser']);
 // 初始化配置
 Route::get('init', InitController::class);
 // 更改配置项
-Route::put('config/{name}', [ConfigController::class, 'update']);
+Route::put('system', [SystemController::class, 'update']);
 // 获取配置项
-Route::get('config/{name}', [ConfigController::class, 'get']);
+Route::get('system', [SystemController::class, 'get']);
 
 // 上传头像
 Route::post('upload/avatar', [UploadController::class, 'avatar']);

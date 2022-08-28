@@ -1,21 +1,18 @@
 <?php
 
-namespace Tests\Feature\Config;
+namespace Tests\Feature\System;
 
-use App\Models\Config;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ConfigTest extends TestCase
+class SystemTest extends TestCase
 {
     use RefreshDatabase;
     /**
      * 更新网站配置
      * @test
      */
-    public function updateSiteConfiguration()
+    public function updateSiteSystemuration()
     {
         $this->signIn();
         $response = $this->put('/api/config/site', [

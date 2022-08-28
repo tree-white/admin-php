@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Config;
+use App\Models\System;
 use Closure;
 use Illuminate\Http\Request;
 
-class ConfigMiddleware
+class SystemMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,19 +17,20 @@ class ConfigMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // $config = Config::where('name', 'system')->firstOrNew()->toArray();
+        // $config = System::where('name', 'system')->firstOrNew()->toArray();
         // config(['system' => empty($config) ? config('system') : $config['data']]);
 
-        $this->loadConfig('system', config('system'));
+        $this->loadSystem('system', config('system'));
 
         return $next($request);
     }
 
-    protected function loadConfig(string $module, $config = [])
+    protected function loadSystem(string $module, $config = [])
     {
-        $data = Config::where("name", $module)->firstOrFail()->data;
+        // $data = System::where("name", $module)->firstOrFail()->data;
+        $data = System::firstOrNew();
         foreach ($config as $key => $value) {
-            $config[$key] = ($data[$key] ?? []) + $value;
+            $config[$key] = ($data['config'][$key] ?? []) + $value;
         };
 
         config(['system' => $config]);
