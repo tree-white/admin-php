@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_super_admin'
     ];
 
     /**
@@ -39,7 +40,13 @@ class User extends Authenticatable
     ];
 
     // 额外添加列
-    // protected $appends = ['avatar_url'];
+    protected $appends = ['is_super_admin'];
+
+    public function getIsSuperAdminAttribute()
+    {
+        return $this->id == 1;
+    }
+
 
     /**
      * 应强制转换的属性.

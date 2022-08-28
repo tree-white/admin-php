@@ -17,9 +17,21 @@ class ConfigMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $config = Config::where('name', 'system')->firstOrNew()->toArray();
-        config(['system' => empty($config) ? config('system') : $config['data']]);
+        // $config = Config::where('name', 'system')->firstOrNew()->toArray();
+        // config(['system' => empty($config) ? config('system') : $config['data']]);
+
+        $this->loadConfig('system', config('system'));
 
         return $next($request);
+    }
+
+    protected function loadConfig(string $module, $config = [])
+    {
+        $data = Config::where("name", $module)->firstOrFail()->data;
+        foreach ($config as $key => $value) {
+            $config[$key] = ($data[$key] ?? []) + $value;
+        };
+
+        config(['system' => $config]);
     }
 }

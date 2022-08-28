@@ -11,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
+use App\Http\Controllers\InitController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,10 +34,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // 注册
 Route::post('register', RegisterController::class);
+
 // 登录
 Route::post('login', LoginController::class);
+
 // 忘记密码
 Route::post('account/forget-password', ForgetPasswordController::class);
+
 // 发送验证码
 Route::post('code/send', [CodeController::class, 'send']);
 // 给当前用户发送验证码
@@ -45,8 +49,13 @@ Route::post('code/user/{type}', [CodeController::class, 'user']);
 Route::post('code/not_exist_user', [CodeController::class, 'notExistUser']);
 // 给存在用户发验证码
 Route::post('code/exist_user', [CodeController::class, 'existUser']);
+
+// 初始化配置
+Route::get('init', InitController::class);
 // 更改配置项
 Route::put('config/{name}', [ConfigController::class, 'update']);
+// 获取配置项
+Route::get('config/{name}', [ConfigController::class, 'get']);
 
 // 上传头像
 Route::post('upload/avatar', [UploadController::class, 'avatar']);
