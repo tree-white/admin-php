@@ -19,36 +19,22 @@ class UserController extends Controller
         return $this->success(data: new UserResource(auth()->user()));
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return UserResource::collection(User::latest()->paginate(10));
+        $users = User::when(request('key'), function ($query, $key) {
+            $query->where($key, 'like', "%" . request('content') . "%");
+        })->paginate(10);
+        return UserResource::collection($users);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return $this->success(data: new UserResource($user));
     }
 
     /**

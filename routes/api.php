@@ -12,6 +12,8 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CodeController;
 use App\Http\Controllers\InitController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -85,3 +87,7 @@ Route::get('fans/{user}', [FansController::class, 'index']);
 
 /** 站点管理 */
 Route::apiResource('site', SiteController::class);
+/** 站点管理员 */
+Route::apiResource('site.admin', AdminController::class);
+/** 模块化 */
+Route::apiResource('module', ModuleController::class);
