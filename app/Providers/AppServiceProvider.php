@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->instance('code', new CodeService);
         $this->app->instance('sms', new SmsService);
         $this->app->instance('upload', new UploadService);
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**

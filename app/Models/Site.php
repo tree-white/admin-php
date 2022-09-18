@@ -24,4 +24,9 @@ class Site extends Model
     {
         return $this->belongsToMany(User::class, 'admins');
     }
+
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, 'site_modules')->withTimestamps();
+    }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\InitController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SiteModuleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -91,3 +92,7 @@ Route::apiResource('site', SiteController::class);
 Route::apiResource('site.admin', AdminController::class);
 /** 模块化 */
 Route::apiResource('module', ModuleController::class);
+
+/** 站点模块 */
+Route::apiResource('site.module', SiteModuleController::class);
+Route::get('site_default_module/site/{site}/module/{module}', [SiteModuleController::class, 'setSiteDefaultModule']);
