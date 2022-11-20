@@ -29,4 +29,14 @@ class Site extends Model
     {
         return $this->belongsToMany(Module::class, 'site_modules')->withTimestamps();
     }
+
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
+
+    public function roles()
+    {
+        return $this->hasMany(Role::class);
+    }
 }

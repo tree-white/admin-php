@@ -74,7 +74,7 @@ Route::apiResource('permission', PermissionController::class);
 
 // 角色管理
 Route::put('role/permission/{role}', [RoleController::class, 'permission']);
-Route::apiResource('role', RoleController::class);
+Route::apiResource('site.role', RoleController::class);
 
 Route::get('user/info', [UserController::class, 'info']);
 Route::apiResource('user', UserController::class);

@@ -26,8 +26,18 @@ class StoreRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:roles,name'],
-            'title' => ['required', Rule::unique('roles', 'title')]
+            'title' => ['required', $this->uniqueFilter('title')],
+            'name' => ['required', 'regex:/^[a-z]+$/i', $this->uniqueFilter('name')],
         ];
+    }
+
+    public function attributes()
+    {
+        return ['title' => '角色名称', 'name' => '角色标识'];
+    }
+
+    protected function uniqueFilter($field)
+    {
+        return Rule::unique('roles', $field)->where('site_id', request('site.id'))->whereNotIn('id', request('role.id'));
     }
 }

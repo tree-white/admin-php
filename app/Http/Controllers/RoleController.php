@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
+use App\Models\Site;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -15,15 +16,11 @@ class RoleController extends Controller
         $this->middleware(['auth:sanctum']);
     }
 
-    /**
-     * 显示资源的清单
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Site $site)
     {
+        $roles = $site->roles()->latest()->paginate(10000);
         // 如果需要获取所有则需要通过静态方法「collection」来获取
-        $role = Role::all();
-        return $this->success('获取成功', RoleResource::collection($role));
+        return RoleResource::collection($roles);
     }
 
     /**
@@ -31,12 +28,12 @@ class RoleController extends Controller
      * @param  \App\Http\Requests\StoreRoleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRoleRequest $request, Role $role)
+    public function store(StoreRoleRequest $request, Site $site, Role $role)
     {
         $role->name = $request->name;
         $role->title = $request->title;
-        $role->save();
-        return $this->success('创建成功', new RoleResource($role));
+        $site->roles()->save($role);
+        return $this->success('角色添加成功');
     }
 
     /**
@@ -44,10 +41,10 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Site $site, Role $role)
     {
         // 如果只要指定单条的话只要 new 一下实例传入即可
-        return $this->success('获取成功', new RoleResource($role));
+        return $this->success('获取角色成功', new RoleResource($role));
     }
 
     /**
@@ -56,12 +53,10 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(UpdateRoleRequest $request, Site $site, Role $role)
     {
-        $role->name = $request->name;
-        $role->title = $request->title;
-        $role->save();
-        return $this->success('更新成功', new RoleResource($role));
+        $role->fill($request->input())->save();
+        return $this->success('编辑角色成功');
     }
 
     /**
@@ -69,8 +64,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Site $site, Role $role)
     {
+
         $role->delete();
         return $this->success('角色删除成功');
     }
@@ -82,6 +78,6 @@ class RoleController extends Controller
     {
         $permissions = $request->permission;
         $role->syncPermissions($permissions);
-        return $this->success('权限分配成功');
+        return $this->success('角色权限分配成功');
     }
 }
