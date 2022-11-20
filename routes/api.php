@@ -91,8 +91,10 @@ Route::apiResource('site', SiteController::class);
 /** 站点管理员 */
 Route::apiResource('site.admin', AdminController::class);
 /** 模块化 */
+Route::get('module/syncLocalModule', [ModuleController::class, 'syncLocalModule']);
 Route::apiResource('module', ModuleController::class);
 
 /** 站点模块 */
 Route::apiResource('site.module', SiteModuleController::class);
 Route::get('site_default_module/site/{site}/module/{module}', [SiteModuleController::class, 'setSiteDefaultModule']);
+Route::get('sync_site_module/site/{site}', [SiteModuleController::class, 'syncSiteModule']);

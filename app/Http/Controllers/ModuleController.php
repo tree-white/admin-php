@@ -13,23 +13,11 @@ class ModuleController extends Controller
 {
     public function index()
     {
-        app('module')->syncModule();
-
         $modules = Module::when(request('key'), function ($query, $key) {
             // 模糊搜索
             $query->where($key, 'like', "%" . request('content') . "%");
         })->latest()->paginate(10);
         return ModuleResource::collection($modules);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     public function store(StoreModuleRequest $request)
@@ -52,44 +40,7 @@ class ModuleController extends Controller
             "<?php return " . var_export($config, true) . ";"
         );
 
-
-        app('module')->syncModule();
-
         return $this->success('新增模块成功');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Module $module)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Module $module)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateModuleRequest  $request
-     * @param  \App\Models\Module  $module
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateModuleRequest $request, Module $module)
-    {
-        //
     }
 
     public function destroy(Module $module)
@@ -100,5 +51,11 @@ class ModuleController extends Controller
 
         $module->delete();
         return $this->success('模块删除成功');
+    }
+
+    public function syncLocalModule()
+    {
+        app('module')->syncModule();
+        return $this->success('模型同步成功');
     }
 }

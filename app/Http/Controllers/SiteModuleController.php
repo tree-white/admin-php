@@ -42,4 +42,10 @@ class SiteModuleController extends Controller
         $site->modules()->updateExistingPivot($module->id, ['is_default' => true]);
         return $this->success('默认模块设置成功');
     }
+
+    public function syncSiteModule(Site $site)
+    {
+        app('permission')->syncSiteModulePermission($site);
+        return $this->success('站点模块同步成功');
+    }
 }
